@@ -753,7 +753,9 @@ func TestInsertBlockchainEventPartialBatch(t *testing.T) {
 		ID:        fftypes.NewUUID(),
 		Namespace: "ns1",
 	}
-	existingEvent := &core.BlockchainEvent{}
+	existingEvent := &core.BlockchainEvent{
+		ID: fftypes.NewUUID(),
+	}
 	txHelper.mdi.On("InsertBlockchainEvents", ctx, []*core.BlockchainEvent{chainEvent}, mock.Anything).Return(fmt.Errorf("optimization bypass"))
 	txHelper.mdi.On("InsertOrGetBlockchainEvent", ctx, chainEvent).Return(existingEvent, nil)
 	txHelper.mdi.On("GetEvents", ctx, "ns1", mock.Anything).Return([]*core.Event{}, nil, nil)
